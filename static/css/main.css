@@ -22,6 +22,7 @@ input {
 }
 
 .login-area {
+    color: gray;
     margin: 0;
     display: block;
     height: 50px;
@@ -35,7 +36,6 @@ input {
         font-size: 12pt;
     }
         .login-area > li > a {
-            color: gray;
             text-decoration: none;
         }
         .login-area > li > a:visited {
@@ -45,6 +45,9 @@ input {
         .login-area > li > a:hover {
             color: blue;
             text-decoration: underline;
+        }
+        .user {
+            color: darkred;
         }
 
 .nav-links {
