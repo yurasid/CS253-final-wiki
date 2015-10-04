@@ -36,6 +36,7 @@ input {
         font-size: 12pt;
     }
         .login-area > li > a {
+            color: gray;
             text-decoration: none;
         }
         .login-area > li > a:visited {
