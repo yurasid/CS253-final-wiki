@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="ua">
+    <meta http-equiv="X-UA-Compatible" charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <!-- [if lt IE9]
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js">
+    </script>
+    <![endif]-->
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Wiki</title>
+    {% endif %}
+
+    {% if style %}
+    <link rel="stylesheet" href="/static/css/{{ style }}"/>
+    {% endif %}
+
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="nav-area">
+        <ul class="nav-links">
+            <li><a href="/">main page</a></li>
+        </ul>
+
+        {% if username and url %}
+        <ul class="login-area">
+            <li>Hello {{ username }}, <a href="/logout">click to logout</a></li>
+            <li>|</li>
+            <li><a href="/_edit{{ url }}">edit</a></li>
+        </ul>
+        {% else %}
+        <ul class="login-area">
+            <li><a href="/login">login</a></li>
+            <li><a href="/signup">singup</a></li>
+        </ul>
+        {% endif %}
+    </nav>
+</header>
+
+<main class="main-content">
+    {% block content %}
+    {% endblock %}
+</main>
+
+</body>
+
+</html>

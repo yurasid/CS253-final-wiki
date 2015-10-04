@@ -1,0 +1,95 @@
+html {
+    font-family: "Arial", "Helvetica", sans-serif;
+    font-size: 16pt;
+    max-width: 900px;
+    margin: auto;
+}
+
+input {
+    font-size: 16pt;
+}
+
+.main-header {
+    margin: 0;
+    position: relative;
+}
+
+.nav-area {
+    margin: 0;
+    height: 40px;
+    max-width: 840px;
+    position: relative;
+}
+
+.login-area {
+    margin: 0;
+    display: block;
+    height: 50px;
+
+    position: absolute;
+    top: 2px;
+    right: 5px;
+}
+    .login-area li {
+        display: inline;
+        font-size: 12pt;
+    }
+        .login-area > li > a {
+            color: gray;
+            text-decoration: none;
+        }
+        .login-area > li > a:visited {
+            color: gray;
+            text-decoration: none;
+        }
+        .login-area > li > a:hover {
+            color: blue;
+            text-decoration: underline;
+        }
+
+.nav-links {
+    margin: 0;
+    display: block;
+    height: 50px;
+    max-width: 200px;
+    position: absolute;
+    top: 5px;
+    left: -38px;
+}
+    .nav-links li {
+        display: inline;
+        font-size: 12pt;
+    }
+        .nav-links > li > a {
+            color: gray;
+            text-decoration: none;
+        }
+        .nav-links > li > a:visited {
+            color: gray;
+            text-decoration: none;
+        }
+        .nav-links > li > a:hover {
+            color: blue;
+            text-decoration: underline;
+        }
+
+.main-content {
+    position: relative;
+}
+
+.content {
+    font-size: 14pt;
+}
+
+.content-button {
+    font-size: 14pt;
+    padding: 5px 10px;
+}
+
+.login-fieldset {
+    margin-bottom: 5px;
+}
+
+.error {
+    color: red;
+}

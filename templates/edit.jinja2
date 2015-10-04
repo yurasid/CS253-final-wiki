@@ -1,0 +1,18 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+    <section class="error">
+        <p>{{ content_error }}</p>
+    </section>
+
+
+    <section class="main-form">
+        <form method="post">
+            <label for="content"></label>
+            <textarea class="content" name="content" id="content" autofocus required
+                      cols="74" rows="25">{{ content|safe }}</textarea>
+            <input type="submit" class="content-button" name="content-button"/>
+        </form>
+    </section>
+
+{% endblock %}

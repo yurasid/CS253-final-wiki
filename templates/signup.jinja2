@@ -1,0 +1,57 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+
+<form method="post">
+    <p>Requared fields markired with <strong><abbr title="required">*</abbr></strong>.</p>
+    <p class="error">{{ error_username }}</p>
+    <p class="error">{{ error_password }}</p>
+    <p class="error">{{ error_verify }}</p>
+    <p class="error">{{ error_email }}</p>
+
+    <fieldset class="login-fieldset">
+        <table>
+            <tr>
+                <td>
+                    <label for="login"><span>Login:</span></label>
+                </td>
+                <td>
+                    <input type="text" id="login" name="username" value="{{ username }}" placeholder="Login" required autofocus>
+                    <strong><abbr title="required">*</abbr></strong>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label for="password"><span>Password:</span></label>
+                </td>
+                <td>
+                    <input id="password" type="password" name="password" placeholder="Password" required>
+                    <strong><abbr title="required">*</abbr></strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="verify"><span>Verify:</span></label>
+                </td>
+                <td>
+                    <input id="verify" type="password" name="verify" placeholder="Verify Password" required>
+                    <strong><abbr title="required">*</abbr></strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="email"><span>Email:</span></label>
+                </td>
+                <td>
+                    <input id="email" type="email" name="email" placeholder="Email">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <button class="content-button" type="submit">Login</button>
+</form>
+
+
+
+{% endblock %}
