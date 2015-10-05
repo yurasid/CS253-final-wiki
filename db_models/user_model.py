@@ -17,6 +17,19 @@ class Login(ndb.Model):
 
     @classmethod
     def create_user(cls, username=None, raw_password=None, email=None):
+        """
+        Create a Login instance, but method NOT PUT Login TO DB
+        You must run _.put() manually after creating the instance.
+
+        :param username:
+            username string
+        :param raw_password:
+            raw_password string
+        :param email:
+            emal (optional)
+        :return:
+            Login instance or None
+        """
         logging.info('LoginClass:create_user() => Start creating user')
 
         if not(username and raw_password):
@@ -38,6 +51,10 @@ class Login(ndb.Model):
     @classmethod
     def check_user_password(cls, login=None, raw_password=None):
         """
+        Check if user and password match whith user and password in DB
+        Method make a DB query and checking if password hashes is same
+        with security.check_user_password() method
+
         :param login:
             login
         :param raw_password:
@@ -66,13 +83,36 @@ class Login(ndb.Model):
 
     @classmethod
     def _query_by_username(cls, username):
+        """
+        Search a user by username and return a query instance
+
+        :param username:
+            username string
+        :return:
+            query instance or None
+        """
         u_query = cls.query(Login.username == username)
         return u_query
 
     @classmethod
     def get_by_username(cls, username):
+        """
+        Geting user by username
+
+        :param username:
+            username
+        :return:
+            Login instance or nine
+        """
         q = cls._query_by_username(username)
         return q.get() if q else None
 
     def make_cookie(self):
+        """
+        Make a token for cookie. Cookie is always same.
+        No timemark or timesalt.
+
+        :return:
+            token string for cookie
+        """
         return make_token_cookie(self.key.id())
