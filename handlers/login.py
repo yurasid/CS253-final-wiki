@@ -18,7 +18,7 @@ class LoginHandler(MainHandler):
 
         if u:
 
-            logging.info('LoginHandler:get() => Valid cookie found. User that log in is ... ' % u.username)
+            logging.info('LoginHandler:get() => Valid cookie found. User that log in is ... %s' % u.username)
             logging.info('LoginHandler:get() => Redirecting to "/"(main page)')
 
             self.redirect('/')

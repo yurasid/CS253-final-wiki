@@ -53,56 +53,74 @@ class WikiPageHandler(MainHandler):
 class EditPageHandler(MainHandler):
 
     def get(self, url):
+        logging.info('EPHandler:get() => GET start')
 
         u = self.track()
+        logging.info('EPHandler:get() => getting current user ...')
 
         if not u:
+            logging.error('EPHandler:get() => User not log in, render error msg ...')
+
             self.render('article.jinja2', error_message='To create or edit the article you must '
                                                         '<a href="/login">login</a> or <a href="/signup">'
                                                         'register</a>.')
             return
 
-        logging.info('EPHandler: GET start')
-        logging.info('EPHandler: Getting %s key from memcache' % url)
+        logging.info('EPHandler:get() => User is log in: %s' % u.username)
+        logging.info('EPHandler:get() => Getting %s key from memcache' % url)
+
         content = memcache.get(url)
 
         if content:
-            logging.info('EPHandler: content FOUND')
+            logging.info('EPHandler:get() => content FOUND')
 
         if not content:
-            logging.warning('EPHandler: Cache miss, '
+            logging.warning('EPHandler:get() => Cache miss, '
                             'no article with key=%s in memcache -> DB QUERY' % url)
+
             a = Article.get_article_by_url(url)
 
             if not a:
-                logging.warning('EPHandler: No article with url=%s in DB. '
+                logging.warning('EPHandler:get() => No article with url=%s in DB. '
                                 'Default content is empty string' % url)
+
             content = a.content if a else ''
 
-        logging.info('EPHandler: Rendering page ... ')
+        logging.info('EPHandler:get() => Rendering page ... ')
+
         self.render('edit.jinja2', content=content)
         return
 
     def post(self, url):
 
-        logging.info('EPHandler: POST start')
+        logging.info('EPHandler:post() => POST start')
+        logging.info('EPHandler:post() => Get current user ...')
+        u = self.track()
+
+        assert u is not None, 'User not log in ... END OF THE WORLD >>>> CHASSSHHHHSAHS!!!!!'
+
         content = self.request.get('content')
-        logging.info('EPHander: get content from form')
+
+        logging.info('EPHander:post() => get content from form')
 
         errors = dict()
-
         if not content:
-            logging.warning('EPHandler: No content found. Rendering page with error ...')
+
+            logging.warning('EPHandler:post() => No content found. Rendering page with error ...')
+
             errors['content_error'] = 'Content cannot be empty.'
             self.render('edit.jinja2', **errors)
             return
 
-        logging.info('EPHandler: Geting article with url=%s form DB' % url)
+        logging.info('EPHandler:post() => Geting article with url=%s form DB' % url)
+
         a = Article.get_article_by_url(url)
 
         if not a:
-            logging.warning('EPHandler: No article found. Make new article')
-            a = Article.make_article(content=content, url=url)
+
+            logging.warning('EPHandler:post() => No article found. Make new article')
+
+            a = Article.make_article(content=content, url=url, author=u.key)
 
             logging.info('EPHandler: Add key=%s to memcache' % url)
             memcache.add('%s' % url, content)
